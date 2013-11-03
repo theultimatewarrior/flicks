@@ -1,0 +1,17 @@
+.main_title {
+    font-size: 4em;
+    font-family: 'Myriad-Pro', 'Myriad', helvetica, arial, sans-serif; 
+    color: #aaaaaa;
+    letter-spacing: 20px;  
+    -webkit-text-stroke: 1px white; 
+    display: block;
+    text-align: center;
+}
+
+#main_search {
+    position: absolute;
+    bottom: 50%;
+    left: 10%;
+    margin: auto;
+    width: 80%;
+}

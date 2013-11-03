@@ -1,21 +1,10 @@
-<html>
-
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>My Flicks</title>
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-
-<body>
-<div data-role="page" id="main-page" data-theme="a">
-
-    <div data-role="content" data-theme="a">
-    
+<?php include("includes/header.php"); ?>
+    <div data-role="page" id="main-page">
+        <div data-role="content">
+                <form id="main_search" action="search.php" method="GET">
+                    <div class="main_title">flicks</div>
+                    <input type="search" class="search_box" name="query" value="" data-mini="true" data-icon="search" data-iconpos="left" placeholder="search" />
+                </form>
+        </div>
     </div>
-</div>
-</body>
-</html>
+<?php include("includes/footer.php"); ?>
