@@ -56,8 +56,8 @@ public class MainActivity extends SherlockFragmentActivity {
         mTitle = mDrawerTitle = getTitle();
  
         // Generate title
-        title = new String[] { "Flicks", "Title Fragment 2",
-                "Title Fragment 3" };
+        title = new String[] { "Flicks", "Home",
+                "Login", "Register" };
  
         // Generate subtitle
         //subtitle = new String[] { "Subtitle Fragment 1", "Subtitle Fragment 2",
@@ -161,14 +161,18 @@ public class MainActivity extends SherlockFragmentActivity {
             //ft.replace(R.id.content_frame, fragment1);
             break;
         case 1:
-        	url = "http://www.yahoo.ca/";
+        	url = "http://www.hoangnguyen.ca/flicks/home.php";
         	webView.loadUrl(url);
             //ft.replace(R.id.content_frame, fragment2);
             break;
         case 2:
-        	webView.loadUrl("http://www.bing.ca/");
+        	url = "http://www.hoangnguyen.ca/flicks/login.php";
+        	webView.loadUrl(url);
             //ft.replace(R.id.content_frame, fragment3);
             break;
+        case 3:
+        	url = "http://www.hoangnguyen.ca/flicks/register.php";
+        	webView.loadUrl(url);
         }
         ft.commit();
         mDrawerList.setItemChecked(position, true);
