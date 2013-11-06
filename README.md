@@ -12,6 +12,6 @@ flicks
   + [x] Create 'log in page'
   + [x] Create home.php
   + [x] Register new user ability
-  + [ ] Log in and log out ability (regular and with social media)
-  + [ ] Session functionality
-  + [ ] Investigate android capability to send data to JavaScript
+  + [x] Log in and log out ability (regular and with social media)
+  + [x] Session functionality
+  + [ ] Investigate android capability to send data to PHP
