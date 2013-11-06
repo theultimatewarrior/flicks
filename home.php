@@ -1,11 +1,19 @@
 <?php
 	require_once('includes/init.php');
+	$general->logged_out_protect();
+	
 	require_once('includes/header.php');
+	
+	$user		= $users->userdata($_SESSION['user_id']);
+	$username	= $user['user_name'];
 ?>
 	<div data-role="page" id="main-page">
 		<div data-role="content">
-			This is home
-			<?php echo 'id = ' . $_SESSION['user_id']; ?>
+			<ul data-role="listview">
+				<li><a href="index.php">Search</a></li>
+				<li><a href="logout.php">Logout</a></li>
+			</ul>
+			<h3>Hello <?php echo $username; ?>!</h3>
 		</div>
 	</div>
 <?php

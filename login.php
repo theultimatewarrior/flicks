@@ -1,5 +1,6 @@
 <?php
 	require_once('includes/init.php');
+	$general->logged_in_protect();
 	
 	if (empty($_POST) == false) {
 		
