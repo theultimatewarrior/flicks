@@ -11,3 +11,4 @@ flicks
   + [ ] Register new user ability
   + [ ] Log in and log out ability (regular and with social media)
   + [ ] Session functionality
+  + [ ] Investigate android capability to send data to JavaScript
