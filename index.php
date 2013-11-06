@@ -1,4 +1,7 @@
-<?php include("includes/header.php"); ?>
+<?php 
+	include("includes/init.php");
+	include("includes/header.php");
+?>
     <div data-role="page" id="main-page">
         <div data-role="content">
                 <form id="main_search" action="search.php" method="GET">

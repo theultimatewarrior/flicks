@@ -1,11 +1,11 @@
 <?php
-	require_once('includes/header.php');
+	require_once('includes/init.php');
 	
 	// If form is submitted
 	if (isset($_POST['submit'])) {
 	
 		if (empty($_POST['username']) || empty($_POST['password']) || empty($_POST['email'])) {
-			$errors[] = 'All fields are required.';
+			$errors[] = 'All fields are required';
 		} else {
 		
 			// validating user's input with functions
@@ -24,9 +24,9 @@
 			}
 			
 			if (filter_var($_POST['email'], FILTER_VALIDATE_EMAIL) == false) {
-				$errors[] = 'Please enter a valid email address.';
+				$errors[] = 'Please enter a valid email address';
 			} else if ($users->email_exists($_POST['email']) == true) {
-				$errors[] = 'That email already exists.';
+				$errors[] = 'That email already exists';
 			}
 		}
 		
@@ -42,6 +42,7 @@
 			exit();
 		}
 	}
+	require_once('includes/header.php');
 ?>
 	<div data-role="page" id="main-page">
 <?php
@@ -56,28 +57,27 @@
 				<ul data-role='listview'>
 					<li>
 						<label for='username'>Username</label>
-						<input type='text' name='username' id='username' data-clear-btn='true' />
+						<input type='text' name='username' id='username' data-clear-btn='true' placeholder="username" />
 					</li>  
 					<li>
 						<label for='password'>Password</label>
-						<input type='password' name='password' id='password' data-clear-btn='true' autocomplete="off" />
+						<input type='password' name='password' id='password' data-clear-btn='true' autocomplete="off" placeholder="password" />
 					</li>
 					<li>
 						<label for='email'>Email</label>
-						<input type='text' name='email' id='email' data-clear-btn='true'/>
+						<input type='text' name='email' id='email' data-clear-btn='true' placeholder="email" />
 					</li>
 					<li>
 						<button type='submit' name='submit'>Register</button>
 					</li>
+					<?php
+						// Display errors here
+						if (empty($errors) == false) {
+							echo '<li>' . implode('</li><li>', $errors) . '</li>';
+						}
+					?>
 				</ul>
 			</form>
-			
-			<?php
-				// Display errors here
-				if (empty($errors) == false) {
-					echo '<p>' . implode('</p><p>', $errors) . '</p>';
-				}
-			?>
 		</div>
 		<?php } ?>
 	</div>

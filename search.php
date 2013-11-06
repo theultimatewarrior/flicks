@@ -1,4 +1,7 @@
-<?php include('includes/header.php'); ?>
+<?php
+	include("includes/init.php");
+	include('includes/header.php');
+?>
     <div data-role="page" id="main-page" />
         <div data-role="content">
             <?php 
