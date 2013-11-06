@@ -81,5 +81,35 @@
 				die($ex->getMessage());
 			}
 		}
+		
+		public function activate($email, $email_code) {
+		
+		}
+		
+		public function email_confirmed($login) {
+		
+		}
+		
+		public function login($login, $password) {
+			
+			$query = $this->_db->prepare("SELECT `password`, `user_id` FROM `users` WHERE UPPER(`user_name`) = UPPER(?)");
+			$query->bindValue(1, $login);
+			
+			try {
+				
+				$query->execute();
+				$data				= $query->fetch();
+				$stored_password	= $data['password'];
+				$user_id			= $data['user_id'];
+				
+				if ($stored_password == sha1($password)) {
+					return $user_id;
+				} else {
+					return false;
+				}
+			} catch(PDOException $e) {
+				die($e->getMessage());
+			}
+		}
 	}
 ?>
