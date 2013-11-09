@@ -1,8 +1,8 @@
 <?php
 	
-	define("DB_SERVER", "nguyenho.fatcowmysql.com");
-    define("DB_USER", "flicks");
-    define("DB_PASS", "flicks");
+	define("DB_SERVER", "localhost");
+    define("DB_USER", "root");
+    define("DB_PASS", "");
     define("DB_NAME", "flicks");
     
     define("CLS_PATH", "classes/");
@@ -33,7 +33,7 @@
         
         session_set_cookie_params($cookieParams["lifetime"], $cookieParams["path"],  $cookieParams["domain"], $secure, $httponly); 
         session_name($session_name);                // Sets the session name to the one set above
-        session_save_path("/home/users/web/b89/moo.nguyenho/cgi-bin/tmp"); // Needed for fatcow.com
+        //session_save_path("/home/users/web/b89/moo.nguyenho/cgi-bin/tmp"); // Needed for fatcow.com
         session_start();                                    // Start the php session
         session_regenerate_id();                    // regenerated the session, delete the old one
     }

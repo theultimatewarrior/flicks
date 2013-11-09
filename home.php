@@ -8,7 +8,7 @@
 	$username	= $user['user_name'];
 ?>
 	<div data-role="page" id="main-page">
-		<div data-role="content">
+        <div data-role="content">
 			<ul data-role="listview">
 				<li><a href="index.php">Search</a></li>
 				<li><a href="logout.php">Logout</a></li>
