@@ -32,12 +32,10 @@
 			<form method="POST" action="">
 				<ul data-role='listview'>
 					<li>
-						<label for='login'>Username</label>
-						<input type='text' name='login' id='login' data-clear-btn='true' placeholder="username" />
+						<input type='text' name='login' id='login' data-clear-btn='true' placeholder="Username" />
 					</li>  
 					<li>
-						<label for='password'>Password</label>
-						<input type='password' name='password' id='password' data-clear-btn='true' autocomplete="off" placeholder="password" />
+						<input type='password' name='password' id='password' data-clear-btn='true' autocomplete="off" placeholder="Password" />
 					</li>
 					<li>
 						<button type='submit' name='submit'>Log In</button>

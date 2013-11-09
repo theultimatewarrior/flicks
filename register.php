@@ -1,6 +1,6 @@
 <?php
 	require_once('includes/init.php');
-	
+	$general->logged_in_protect();
 	// If form is submitted
 	if (isset($_POST['submit'])) {
 	
@@ -50,22 +50,20 @@
         echo '<div data-role="content">';
 		echo 'Thank you for registering. Please check your email.';
 		echo '</div>';
+        echo '<script>redirect_home();</script>';
 	} else {
 ?>
 		<div data-role="content">
 			<form method="POST" action="">
 				<ul data-role='listview'>
 					<li>
-						<label for='username'>Username</label>
-						<input type='text' name='username' id='username' data-clear-btn='true' placeholder="username" />
+						<input type='text' name='username' id='username' data-clear-btn='true' placeholder="Username" />
 					</li>  
 					<li>
-						<label for='password'>Password</label>
-						<input type='password' name='password' id='password' data-clear-btn='true' autocomplete="off" placeholder="password" />
+						<input type='password' name='password' id='password' data-clear-btn='true' autocomplete="off" placeholder="Password" />
 					</li>
 					<li>
-						<label for='email'>Email</label>
-						<input type='text' name='email' id='email' data-clear-btn='true' placeholder="email" />
+						<input type='text' name='email' id='email' data-clear-btn='true' placeholder="Email" />
 					</li>
 					<li>
 						<button type='submit' name='submit'>Register</button>
