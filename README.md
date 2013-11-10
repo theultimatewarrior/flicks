@@ -7,6 +7,7 @@ flicks
   + [ ] Complete email confirmed function
   + [ ] Investigate android capability to send data to PHP
   + [ ] Create movies database
+  + [ ] Add 'add button' in the search page and movies page
   + [ ] Save information for movies (Including posters)
   + [ ] Load movie from database if movie exists in database to reduce number of calls
   + [ ] Design movie page
