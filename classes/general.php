@@ -16,8 +16,10 @@
 		// if not logged in then redirect to index.php
 		public function logged_out_protect() {
 			if ($this->logged_in() == false) {
-				header('Location: index.php');
-				exit();
+                if (empty($_GET['query'])) {
+                    header('Location: index.php');
+                    exit();
+                }
 			}
 		}
 	}

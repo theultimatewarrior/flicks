@@ -15,3 +15,9 @@
     margin: auto;
     width: 80%;
 }
+
+.search_title {
+    min-height: 20px;
+}
+
+<!-- jQuery Mobile Overwrite -->

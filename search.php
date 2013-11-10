@@ -13,7 +13,7 @@
     <div data-role="page" id="main-page" />
         <div data-role="content">
             <div data-role="header" data-position="fixed">
-                <h1>Search: "<?php echo $query; ?>"</h1>
+                <span class="search_title">Search: "<?php echo $query; ?>"</span>
             </div>
             <ul data-role="listview" data-inset="false">
                 <?php $rtdb->search_movie($query); ?>
