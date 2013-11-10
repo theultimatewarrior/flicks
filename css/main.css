@@ -16,6 +16,10 @@
     width: 80%;
 }
 
+.movie_year {
+	color: #aaaaaa;
+}
+
 .search_title {
     min-height: 20px;
 }
