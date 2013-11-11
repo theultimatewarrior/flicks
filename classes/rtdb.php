@@ -1,18 +1,21 @@
 <?php
 	define('API_KEY', 'v5xx2reh7qxsbmv6dc7ayhvd');
 	define('API_URL', 'http://api.rottentomatoes.com/api/public/v1.0/movies');
+	require_once("includes/Mobile_Detect.php");
+	require_once("tmdb.php");
 	
 	class RTDb {
         
         protected $movie_search;
 		protected $movie;
+		protected $imdb_id;
+		protected $tmdb_movie;
 		
 		public function search_movie($query) {
             $query = str_replace(' ', '+', $query);
 			$url = '.json?apikey=' . API_KEY . '&q=' . $query;
 			
 			$this->movie_search = $this->_make_call($url);
-            
             $this->_parse_search_results();
 		}
 		
@@ -20,14 +23,19 @@
 			$url = '/' . $id . '.json?apikey=' . API_KEY;
 			
 			$this->movie = $this->_make_call($url);
-			
 			$this->_parse_movie();
+			
+			$this->tmdb_movie = new TMDB();
+			$this->tmdb_movie = $this->tmdb_movie->imdb_lookup($this->imdb_id);
+
+			//echo (string)$this->tmdb_movie;
 		}
 		
 		private function _parse_movie() {
-			
+			$detect = new Mobile_Detect();
 			$json_movie = json_decode($this->movie, true);
 			$date = new DateTime($json_movie['release_dates']['theater']);
+			$this->imdb_id = 'tt' . $json_movie['alternate_ids']['imdb'];
 			$num_genres = count($json_movie['genres']);
 			$i = 0;
 			
@@ -46,10 +54,12 @@
 							}
 						};
 						echo ' - ' . $date->format('F d Y') . '</p>
-					  </div>
-				  </div>';
+					  </div>';
+			// For Mobile Devices only
+			if( $detect->isMobile() && !$detect->isTablet() ){
+				echo '</div>';
 				  
-			echo '
+				echo '
 				<div data-role="collapsible-set" data-inset="false" class="movie_details" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 					<div data-role="collapsible">
 						<h3>Details</h3>
@@ -101,14 +111,92 @@
 								}
 								echo '</div>';
 								echo '<div class="ui-block-b">';
+								$j = 0;
 								if (!empty($cast['characters'])) {
-									echo $cast['characters'][0];
+									$num_characters = count($cast['characters']);
+									foreach ($cast['characters'] as $character) {
+										echo $character;
+										if (++$j != $num_characters) {
+											echo ' / ';
+										}
+									}
 								}
 								echo '</div>';
 							}
 					echo '</div>
 					</div>
 				</div>';
+			} else {
+								echo '
+				<div>
+					<div>
+						<h3>Details</h3>
+						<div class="ui-grid-a">
+						<div class="ui-block-a">';
+						if (count($json_movie['abridged_directors']) > 1) {
+							echo '<b>Directors</b>';
+						} else {
+							echo '<b>Director</b>';
+						}
+						echo '</div>
+						<div class="ui-block-b">';
+						foreach ($json_movie['abridged_directors'] as $directors) {
+							echo $directors['name'], '<br />';
+						}
+						echo '</div>
+						</div>
+						<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<b>Studio</b>
+						</div>
+						<div class="ui-block-b">';
+						if (empty($json_movie['studio'])) {
+							echo 'N/A';
+						} else {
+							echo $json_movie['studio'];
+						}
+						echo '</div>
+						</div>
+					</div>
+					<div>
+						<h3>Synopsis</h3>
+						<p>';
+						if (empty($json_movie['synopsis'])) {
+							echo 'No synopsis found.';
+						} else {
+							echo $json_movie['synopsis'];
+						}
+					echo '</p>
+					</div>
+					
+					<div>
+						<h3>Cast</h3>
+						<div class="ui-grid-a">';
+							foreach ($json_movie['abridged_cast'] as $cast) {
+								echo '<div class="ui-block-a">';
+								if (!empty($cast['name'])) {
+									echo '<b>' . $cast['name'] . '</b>';
+								}
+								echo '</div>';
+								echo '<div class="ui-block-b">';
+								$j = 0;
+								if (!empty($cast['characters'])) {
+									$num_characters = count($cast['characters']);
+									foreach ($cast['characters'] as $character) {
+										echo $character;
+										if (++$j != $num_characters) {
+											echo ' / ';
+										}
+									}
+								}
+								echo '</div>';
+							}
+					echo '</div>
+					</div>
+				</div>';
+				// End of .movie_head
+				echo '</div>';
+			}
 		}
 		
         private function _parse_search_results() {
