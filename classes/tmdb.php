@@ -2,10 +2,6 @@
 	define("TMDB_API_KEY", "78ff199f1355b4b050f29c2337c065a6");
 	define("TMDB_API_URL", "http://api.themoviedb.org/");
 	define("BASE_IMAGE_PATH", "http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w500");
-	/*
-	search by imdb id:
-http://api.themoviedb.org/3/movie/tt1731141?api_key=78ff199f1355b4b050f29c2337c065a6
-	*/
 	
 	class TMDB {
 		
@@ -16,16 +12,9 @@ http://api.themoviedb.org/3/movie/tt1731141?api_key=78ff199f1355b4b050f29c2337c0
 			// get JSON data
 			$url = '3/movie/' . $mid . '?api_key=' . TMDB_API_KEY;
 
-			$results = $this->make_call($url);
-			return $results;
+			$this->_movie = $this->make_call($url);
 			
-			/*
-			$JSONarray = json_decode($results, true);
-			
-			foreach($JSONarray['results'] as $result) {
-			
-			}
-			*/
+			return $this->_movie;
 		}
 		
 		public function get_showtimes() {
@@ -48,7 +37,4 @@ http://api.themoviedb.org/3/movie/tt1731141?api_key=78ff199f1355b4b050f29c2337c0
 			return $response;
 		}
 	}
-	
-	$t = new TMDB();
-	$t->get_showtimes();
 ?>
