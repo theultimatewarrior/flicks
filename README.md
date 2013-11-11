@@ -10,10 +10,15 @@ flicks
   + [ ] Add 'add button' in the search page and movies page
   + [ ] Save information for movies (Including posters)
   + [ ] Load movie from database if movie exists in database to reduce number of calls
-  + [ ] Design movie page
-  + [ ] Create user's side menu
+  + [x] Design movie page
+  + [x] Create user's side menu
+  + [ ] Complete side menu
   + [ ] Complete user's profile page
   + [ ] Incorporate OnConnect API for Movie's show times
+  + [x] BUG: When screen size changes on android, loadUrl executes again
+  + [ ] Disable auto complete on android
+  + [ ] Back button controls web
+  + [x] Include menu when in desktop view
   
 ##11/03/2013##
 
