@@ -19,6 +19,11 @@ flicks
   + [ ] Disable auto complete on android
   + [ ] Back button controls web
   + [x] Include menu when in desktop view
+  + [x] Search TMDB by IMDB Id
+  + [ ] Add more details to movie page from TMDB
+  + [ ] Use TMDB Overview if RTDB synopsis does not exist
+  + [ ] Replace RTDB cast with TMDB cast
+  + [ ] Add People page
   
 ##11/03/2013##
 
