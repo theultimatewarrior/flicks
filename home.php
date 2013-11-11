@@ -8,6 +8,7 @@
 	$username	= $user['user_name'];
 ?>
 	<div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
         <div data-role="content">
 			<ul data-role="listview">
 				<li><a href="index.php">Search</a></li>

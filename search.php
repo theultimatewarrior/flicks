@@ -11,11 +11,14 @@
     }
 	
 ?>
-    <div data-role="page" id="main-page" />
+    <div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
         <div data-role="content">
-            <div data-role="header" data-position="fixed">
-                <span class="search_title">Search: "<?php echo $query; ?>"</span>
-            </div>
+			<div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="c">
+                <h2 class="search_title">Search: "<?php echo $query; ?>"</h2>
+			</div>
+			<br />
+			<br />
             <ul data-role="listview" data-inset="false" data-split-icon="plus" data-split-theme="a">
                 <?php $rtdb->search_movie($query); ?>
             </ul>

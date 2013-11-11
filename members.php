@@ -7,6 +7,7 @@
 	require_once('includes/header.php');
 ?>
 	<div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
 		<div data-role="content">
 			<ul data-role="listview" data-inset="false">
 				<?php

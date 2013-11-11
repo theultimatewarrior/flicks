@@ -45,6 +45,7 @@
 	require_once('includes/header.php');
 ?>
 	<div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
 <?php
 	if (isset($_GET['success']) && empty($_GET['success'])) {
         echo '<div data-role="content">';

@@ -8,6 +8,11 @@
     text-align: center;
 }
 
+.main_title a {
+	letter-spacing: 10px;
+	white-space: normal;
+}
+
 #main_search {
     position: absolute;
     bottom: 50%;
@@ -16,12 +21,62 @@
     width: 80%;
 }
 
+.movie_head {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+.movie_poster {
+	width: 30%;
+	float: left;
+}
+
+.poster {
+	width: 95%;
+	height: auto;
+}
+
+.movie_title {
+	width: 70%;
+	float: left;
+	margin-top: -20px;
+}
+
+a:link {
+	color: #aaaaaa;
+	text-decoration: none;
+}
+
+.title {
+	letter-spacing: -2px;
+}
+
+.movie_details {
+	display: block;
+	width: 100%;
+	float: right;
+}
+
 .movie_year {
 	color: #aaaaaa;
 }
 
 .search_title {
     min-height: 20px;
+}
+
+.small_profile_pic {
+    width: 50%;
+    height: auto;
+}
+    
+.small_user_info {
+    position: relative;
+}
+
+.small_user_info_content {
+    position: absolute;
 }
 
 <!-- jQuery Mobile Overwrite -->

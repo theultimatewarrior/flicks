@@ -7,11 +7,10 @@
 	
 	require_once('includes/header.php');
 ?>
-	<div data-role="page" id="main-page" />
+	<div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
         <div data-role="content">
-			<div>
-				<?php $rtdb->get_movie($movie_id); ?>
-			</div>
+			<?php $rtdb->get_movie($movie_id); ?>
         </div>
     </div>
 <?php require_once('includes/footer.php');

@@ -28,6 +28,7 @@
 	require_once("includes/header.php");
 ?>
 	<div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
 		<div data-role="content">
 			<form method="POST" action="">
 				<ul data-role='listview'>

@@ -3,6 +3,7 @@
 	include("includes/header.php");
 ?>
     <div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
         <div data-role="content">
             <form id="main_search" action="search.php" method="GET">
                 <div class="main_title">flicks</div>

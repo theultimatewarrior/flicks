@@ -10,6 +10,7 @@
 	require_once('includes/header.php');
 ?>
 	<div data-role="page" id="main-page">
+		<?php require_once("includes/sidebar.php"); ?>
 		<div data-role="content">
 			<div class="ui-grid-a">
 				<div class="ui-block-a"><img src="images/default_gravatar.png" class="ui-li-thumb" /></div>
