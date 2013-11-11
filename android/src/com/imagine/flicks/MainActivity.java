@@ -48,6 +48,9 @@ public class MainActivity extends SherlockFragmentActivity {
 			
 		}
 		
+		if (savedInstanceState != null)
+			((WebView)findViewById(R.id.webView1)).restoreState(savedInstanceState);
+		
 		// Change background color of action bar
 		android.app.ActionBar bar = getActionBar();
 		bar.setBackgroundDrawable(new ColorDrawable(Color.rgb(247, 247, 247)));
@@ -205,6 +208,11 @@ public class MainActivity extends SherlockFragmentActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         getSupportActionBar().setTitle(mTitle);
+    }
+    
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        webView.saveState(outState);
     }
     
 	/*@Override
