@@ -15,12 +15,22 @@
 		<?php require_once("includes/sidebar.php"); ?>
         <div data-role="content">
 			<div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="c">
-                <h2 class="search_title">Search: "<?php echo $query; ?>"</h2>
+                <h3 class="search_title">Search: "<?php echo $query; ?>"</h3>
 			</div>
-			<br />
-			<br />
+			<?php 
+			try {
+				if ($requested_with != "com.imagine.flicks") {
+					echo '<br /><br />';
+				}
+			} catch(Exception $e){}
+			?>
             <ul data-role="listview" data-inset="false" data-split-icon="plus" data-split-theme="a">
-                <?php $rtdb->search_movie($query); ?>
+                <?php 
+					if ($general->logged_in())
+						$rtdb->search_movie($query);
+					else
+						echo "Please Log In.";
+				?>
             </ul>
         </div>
     </div>

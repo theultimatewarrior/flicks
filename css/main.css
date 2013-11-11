@@ -64,6 +64,7 @@ a:link {
 
 .search_title {
     min-height: 20px;
+	white-space: normal;
 }
 
 .small_profile_pic {

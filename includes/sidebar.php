@@ -16,7 +16,9 @@
 			<form action="search.php" method="GET">
 				<input type="search" name="query" id="search-mini" value="" data-mini="true" data-icon="search" data-iconpos="left" placeholder="search..." />
 			</form>
+			<br />
 			<ul data-role='listview' data-insert='true' class='ui-icon-alt' data-theme="a" data-divider-theme="a">
+				<li><a href='index.php'>Flicks</a></li>	
 				<li><a href='home.php'>Home</a></li>	
 				<li><a href=''>Show Times</a></li>	
 				<li><a href='members.php'>Members</a></li>
@@ -39,14 +41,14 @@
 			<!--<img src="' .  //get_user_profile_pic_url . '" />-->
 			<?php //else ?>
 			<div class="ui-grid-a">
-				<div class="ui-block-a"><img class="small_profile_pic" src="images/default_gravatar.png" /></div>
+				<div class="ui-block-a"><a href="profile_page.php?user_id=<?php echo $_SESSION['user_id']; ?>"><img class="small_profile_pic" src="images/default_gravatar.png" /></a></div>
 				<div class="ui-block-b small_user_info">
-					<a class="small_user_info_content" href="edit_customer.php?user_id=<?php //echo $_SESSION['user_id']; ?>"><?php //echo $_SESSION['firstName'] . ' ' . $_SESSION['lastName']; ?></a>
+					<a class="small_user_info_content" href="profile_page.php?user_id=<?php echo $_SESSION['user_id']; ?>"><?php //echo $_SESSION['firstName'] . ' ' . $_SESSION['lastName']; ?></a>
 				</div>
 			</div>
 			<br />
 			<ul data-role='listview' data-insert='true' class='ui-icon-alt' data-theme="a" data-divider-theme="a">
-				<li><a href='profile_page.php?user_id=<?php //echo $_SESSION['user_id']; ?>'>Edit Profile</a></li>	
+				<li><a href='profile_page.php?user_id=<?php echo $_SESSION['user_id']; ?>'>Edit Profile</a></li>	
 				<li><a href=''>My Flicks</a></li>
 				<li><a href='logout.php'>Log Out</a></li>
 			</ul>

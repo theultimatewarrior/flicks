@@ -1,6 +1,6 @@
 <?php
 	require_once('includes/init.php');
-	
+	$general->logged_out_protect();
 	if (isset($_GET['id'])) {
 		$movie_id = $_GET['id'];
 	}
