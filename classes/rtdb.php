@@ -22,25 +22,95 @@
 			$this->movie = $this->_make_call($url);
 			
 			$this->_parse_movie();
-			
-			echo $this->movie;
 		}
 		
 		private function _parse_movie() {
 			
 			$json_movie = json_decode($this->movie, true);
+			$date = new DateTime($json_movie['release_dates']['theater']);
+			$num_genres = count($json_movie['genres']);
+			$i = 0;
 			
-			echo '<div class="container_12">
-						<li class="grid_2">
-							<img src="' . $json_movie['posters']['detailed'] . '" />
-						</li>
-						
-						<li class="grid_10">
-							<h1>' . $json_movie['title'] . '<span class="movie_year"> (' . $json_movie['year'] . ')</h1>
-						</li>
-					</div>';
+			echo '<div class="movie_head">
+					  <div class="movie_poster">
+						<img class="poster" src="' . $json_movie['posters']['original'] . '" width="100%" />
+					  </div>
+					  
+					  <div class="movie_title">
+						<h2 class="title">' . $json_movie['title'] . '<span class="movie_year"> (' . $json_movie['year'] . ')</h2>
+						<p class="ui-li-desc" style="white-space: normal">' . $json_movie['mpaa_rating'] . ' | ' . $json_movie['runtime'] . ' min - ';
+						foreach ($json_movie['genres'] as $genre) {
+							echo $genre;
+							if (++$i != $num_genres) {
+								echo ' | ';
+							}
+						};
+						echo ' - ' . $date->format('F d Y') . '</p>
+					  </div>
+				  </div>';
+				  
+			echo '
+				<div data-role="collapsible-set" data-inset="false" class="movie_details" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+					<div data-role="collapsible">
+						<h3>Details</h3>
+						<div class="ui-grid-a">
+						<div class="ui-block-a">';
+						if (count($json_movie['abridged_directors']) > 1) {
+							echo '<b>Directors</b>';
+						} else {
+							echo '<b>Director</b>';
+						}
+						echo '</div>
+						<div class="ui-block-b">';
+						foreach ($json_movie['abridged_directors'] as $directors) {
+							echo $directors['name'], '<br />';
+						}
+						echo '</div>
+						</div>
+						<div class="ui-grid-a">
+						<div class="ui-block-a">
+							<b>Studio</b>
+						</div>
+						<div class="ui-block-b">';
+						if (empty($json_movie['studio'])) {
+							echo 'N/A';
+						} else {
+							echo $json_movie['studio'];
+						}
+						echo '</div>
+						</div>
+					</div>
+					<div data-role="collapsible">
+						<h3>Synopsis</h3>
+						<p>';
+						if (empty($json_movie['synopsis'])) {
+							echo 'No synopsis found.';
+						} else {
+							echo $json_movie['synopsis'];
+						}
+					echo '</p>
+					</div>
+					
+					<div data-role="collapsible">
+						<h3>Cast</h3>
+						<div class="ui-grid-a">';
+							foreach ($json_movie['abridged_cast'] as $cast) {
+								echo '<div class="ui-block-a">';
+								if (!empty($cast['name'])) {
+									echo '<b>' . $cast['name'] . '</b>';
+								}
+								echo '</div>';
+								echo '<div class="ui-block-b">';
+								if (!empty($cast['characters'])) {
+									echo $cast['characters'][0];
+								}
+								echo '</div>';
+							}
+					echo '</div>
+					</div>
+				</div>';
 		}
-        
+		
         private function _parse_search_results() {
             
             $MoviesResult = json_decode($this->movie_search, true);
