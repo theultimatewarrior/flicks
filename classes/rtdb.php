@@ -257,36 +257,74 @@
 			$tmdb = new TMDB();
 			$credits = $tmdb->get_credits($this->imdb_id);
 			$cast_members = json_decode($credits, true);
-			
-			echo '
-				<h3 class="subtitle">Cast</h3>
-					<div class="ui-grid-a">';
-						foreach ($cast_members['cast'] as $cast) {
-							echo '<div class="ui-block-a">';
-							if (!empty($cast['profile_path'])) {
-								echo '<div class="movie_head"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w45/' . $cast['profile_path'] . '" />
-								  </div>';
-							}else {
-								echo '<div></div>';
-							}
+            $detect = new Mobile_Detect();
+			$count = count($cast_members['cast']);
+            
+            echo '<h3 class="subtitle">Cast</h3>';
+			if (!$detect->isMobile()) {
+                echo '<div class="ui-grid-b">';
+				foreach ($cast_members['cast'] as $cast) {
+                    
+                    if ($count % 3 == 0) {
+                        echo '<div class="ui-block-a">';
+                    } else if ($count % 3 == 1){
+                        echo '<div class="ui-block-b">';
+                    } else {
+                        echo '<div class="ui-block-c">';
+                    }
+                    $count -= 1;
+                    echo '<div class="ui-grid-a">';
+                    
+                    echo '<div class="ui-block-a" style="margin-bottom: 10px; width: 15%;">';
+                    if (!empty($cast['profile_path'])) {
+						echo '<img style="width: 80%;" src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/' . $cast['profile_path'] . '" />';
+					} else {
+						echo '<img style="width: 80%;" src="images/no_avatar.jpg" />';
+					}
 							
-							echo '</div>';
+					echo '</div>';
 							
-							echo '<div class="ui-block-b" style="margin-left: -20px;">';
-							if (!empty($cast['name'])) {
-								echo '<b>' . $cast['name'] . '</b>';
-								if (!empty($cast['character'])) {
-									echo '<br />' . $cast['character'];
-								} else {
-									echo 'N/A';
-								}
-								echo '</div>';
-							} else {
-								echo 'N/A';
-							}
+					echo '<div class="ui-block-b" style="margin-bottom: 10px; width: 85%;">';
+					if (!empty($cast['name'])) {
+						echo '<b>' . $cast['name'] . '</b>';
+						if (!empty($cast['character'])) {
+							echo '<br />' . $cast['character'];
+						} else {
+							echo 'N/A';
 						}
-			echo '</div>';
-		}
+						echo '</div>';
+					} else {
+						echo 'N/A';
+					}
+                    echo '</div>';
+                    echo '</div>';
+				}
+                echo '</div>';
+            } else {
+                echo '<ul data-role="listview" data-inset="false" data-split-icon="plus" data-split-theme="a">';
+                foreach ($cast_members['cast'] as $cast) {
+                    echo '<li><a href="">';
+                    if (!empty($cast['profile_path'])) {
+						echo '<img style="height: 100%; width:63px" src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/' . $cast['profile_path'] . '" />';
+					} else {
+						echo '<img src="images/no_avatar.jpg" />';
+					}
+                    echo '<div style="margin: 0 -2em; padding-right: 2em;">';
+                    if (!empty($cast['name'])) {
+                        echo '<b>' . $cast['name'] . '</b>';
+                        if (!empty($cast['character'])) {
+                            echo '<p class="ui-li-desc">' . $cast['character'] . ' </p>';
+                        } else {
+                            echo 'N/A';
+                        }
+                    } else {
+                        echo 'N/A';
+                    }
+                    echo '</div></a></li>';
+                }
+                echo '</ul>';
+            }
+        }
 		
         private function _parse_search_results() {
             
