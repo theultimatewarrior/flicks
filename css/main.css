@@ -48,6 +48,21 @@ a:link {
 	text-decoration: none;
 }
 
+.no_link {
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+.no_link:hover {
+    color: #aaaaaa !important;
+}
+
+.no_bold, .no_bold:hover {
+    color: #000000 !important;
+    cursor: default !important;
+    font-weight: normal !important;
+}
+
 .title {
 	letter-spacing: -2px;
 }

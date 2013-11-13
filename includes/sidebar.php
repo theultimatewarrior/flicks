@@ -1,11 +1,18 @@
 <?php
-	if ($detect->isMobile() && $_SERVER['HTTP_X_REQUESTED_WITH'] == "com.imagine.flicks") {
-	} else {
+	//if ($detect->isMobile() && $_SERVER['HTTP_X_REQUESTED_WITH'] == "com.imagine.flicks") {
+	//} else {
 ?>
 		<div data-role="header" class="header" data-position="fixed" data-theme="a">
 			<a id="navigation-button" href="#panel-nav" data-icon="bars" data-iconpos="notext">Navigation</a>
-			<h1 class="main_title"><a style="color: #F5F5F5;" href="index.php">flicks</a></h1>
-			<?php
+			<h1 class="main_title" <?php if (!$detect->isMobile()) { ?>style="text-align: left !important; margin: 0.6em 1em -2em 50px !important;" <?php } ?>>
+                <a style="color: #F5F5F5;" href="index.php">flicks</a>
+            </h1>
+            <?php if (!$detect->isMobile()) { ?>
+            <form style="margin: 0.6em 1em -2em 55%; width: 40%;" action="search.php" method="GET">
+                <input data-mini="true" name="query" type="search" placeholder="search movie"/>
+            </form>
+            <h1>&nbsp;</h1>
+            <?php }
 				if ($general->logged_in()) {
 			?>
 			<a id="user-nav-button" href="#panel-nav" data-icon="grid" data-iconpos="notext">User Profile</a>
@@ -54,5 +61,5 @@
 			</ul>
 		</div>
 <?php
-	}
+	//}
 ?>

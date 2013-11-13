@@ -274,10 +274,10 @@
                     }
                     $count -= 1;
                     echo '<div class="ui-grid-a">';
-                    
+                    echo '<a href="">';
                     echo '<div class="ui-block-a" style="margin-bottom: 10px; width: 15%;">';
                     if (!empty($cast['profile_path'])) {
-						echo '<img style="width: 80%;" src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/' . $cast['profile_path'] . '" />';
+						echo '<img style="height: auto; width: 80%;" src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/' . $cast['profile_path'] . '" />';
 					} else {
 						echo '<img style="width: 80%;" src="images/no_avatar.jpg" />';
 					}
@@ -286,16 +286,15 @@
 							
 					echo '<div class="ui-block-b" style="margin-bottom: 10px; width: 85%;">';
 					if (!empty($cast['name'])) {
-						echo '<b>' . $cast['name'] . '</b>';
+						echo '<b class="no_link">' . $cast['name'] . '</b>';
 						if (!empty($cast['character'])) {
-							echo '<br />' . $cast['character'];
-						} else {
-							echo 'N/A';
+							echo '<br /><span class="no_link no_bold">' . $cast['character'] . '</span>';
 						}
 						echo '</div>';
 					} else {
 						echo 'N/A';
 					}
+                    echo '</a>';
                     echo '</div>';
                     echo '</div>';
 				}
@@ -309,13 +308,11 @@
 					} else {
 						echo '<img src="images/no_avatar.jpg" />';
 					}
-                    echo '<div style="margin: 0 -2em; padding-right: 2em;">';
+                    echo '<div style="margin: 0 -1.5em; padding-right: 2em;">';
                     if (!empty($cast['name'])) {
                         echo '<b>' . $cast['name'] . '</b>';
                         if (!empty($cast['character'])) {
-                            echo '<p class="ui-li-desc">' . $cast['character'] . ' </p>';
-                        } else {
-                            echo 'N/A';
+                            echo '<p class="ui-li-desc" style="margin-top: 3px;">' . $cast['character'] . ' </p>';
                         }
                     } else {
                         echo 'N/A';
