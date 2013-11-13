@@ -1,7 +1,7 @@
 <?php
 	define('API_KEY', 'v5xx2reh7qxsbmv6dc7ayhvd');
 	define('API_URL', 'http://api.rottentomatoes.com/api/public/v1.0/movies');
-	require_once("includes/Mobile_Detect.php");
+	require_once("mobile_detect.php");
 	require_once("tmdb.php");
 	
 	class RTDb {

@@ -1,5 +1,5 @@
 <?php 
-	require_once("Mobile_Detect.php");
+	require_once("classes/mobile_detect.php");
 	$detect = new Mobile_Detect();
 	
 	$requested_with = null;
