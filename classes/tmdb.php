@@ -6,9 +6,10 @@
 	class TMDB {
 		
 		protected $_movie;
+		protected $_id;
 		
 		public function imdb_lookup($mid) {
-		
+			$this->_id = $mid;
 			// get JSON data
 			$url = '3/movie/' . $mid . '?api_key=' . TMDB_API_KEY;
 
@@ -17,11 +18,10 @@
 			return $this->_movie;
 		}
 		
-		public function get_showtimes() {
+		public function get_credits($mid) {
+			$url = '3/movie/' . $mid . '/credits?api_key=' . TMDB_API_KEY;
 			
-			$url = '3/movie/top_rated?api_key=' . API_KEY;
-			
-			echo $this->make_call($url);
+			return $this->make_call($url);
 		}
 		
 		public function make_call($url) {

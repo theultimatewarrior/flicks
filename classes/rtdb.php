@@ -9,6 +9,7 @@
         protected $movie_search;
 		protected $movie;
 		protected $imdb_id;
+		protected $rtdb_movie;
 		protected $tmdb_movie;
 		
 		public function search_movie($query) {
@@ -21,24 +22,24 @@
 		
 		public function get_movie($id) {
 			$url = '/' . $id . '.json?apikey=' . API_KEY;
-			
 			$this->movie = $this->_make_call($url);
 			$this->_parse_movie();
-			
-			$this->tmdb_movie = new TMDB();
-			$this->tmdb_movie = $this->tmdb_movie->imdb_lookup($this->imdb_id);
-			//$this->tmdb_movie = json_decode($this->tmdb_movie);
-
-			echo $this->tmdb_movie;
 		}
 		
 		private function _parse_movie() {
 			$detect = new Mobile_Detect();
 			$json_movie = json_decode($this->movie, true);
 			$date = new DateTime($json_movie['release_dates']['theater']);
-			$this->imdb_id = 'tt' . $json_movie['alternate_ids']['imdb'];
-			$num_genres = count($json_movie['genres']);
 			
+			$this->rtdb_movie = $json_movie;
+			$this->imdb_id = 'tt' . $json_movie['alternate_ids']['imdb'];
+
+			$tmdb_movie = new TMDB();
+			$tmdb_movie = $tmdb_movie->imdb_lookup($this->imdb_id);
+			$this->tmdb_movie = json_decode($tmdb_movie, true);
+			
+			$num_genres = count($json_movie['genres']);
+			$i = 0;
 			echo '<div class="movie_head">
 					  <div class="movie_poster">
 						<img class="poster" src="' . $json_movie['posters']['original'] . '" width="100%" />
@@ -67,143 +68,224 @@
 		}
 		
 		private function _parse_desktop_movie($json_movie) {
+			$tmdb_movie = $this->tmdb_movie;
+			
 			echo '
 				<div>
-					<div>
-						<h3>Details</h3>
-						<div class="ui-grid-a">
-						<div class="ui-block-a">';
-						if (count($json_movie['abridged_directors']) > 1) {
-							echo '<b>Directors</b>';
-						} else {
-							echo '<b>Director</b>';
-						}
-						echo '</div>
-						<div class="ui-block-b">';
-						foreach ($json_movie['abridged_directors'] as $directors) {
-							echo $directors['name'], '<br />';
-						}
-						echo '</div>
-						</div>
-						<div class="ui-grid-a">
-						<div class="ui-block-a">
-							<b>Studio</b>
-						</div>
-						<div class="ui-block-b">';
-						if (empty($json_movie['studio'])) {
-							echo 'N/A';
-						} else {
-							echo $json_movie['studio'];
-						}
-						echo '</div>
-						</div>
-					</div>
-					<div>
-						<h3>Synopsis</h3>
-						<p>';
-						if (empty($json_movie['synopsis'])) {
-							echo 'No synopsis found.';
-						} else {
-							echo $json_movie['synopsis'];
-						}
-					echo '</p>
+					<div>';
+					$this->_parse_movie_details();
+			
+			echo '
 					</div>
 					
-					<div>
-						<h3>Cast</h3>
-						<div class="ui-grid-a">';
-							foreach ($json_movie['abridged_cast'] as $cast) {
-								echo '<div class="ui-block-a">';
-								if (!empty($cast['name'])) {
-									echo '<b>' . $cast['name'] . '</b>';
-								}
-								echo '</div>';
-								echo '<div class="ui-block-b">';
-								$j = 0;
-								if (!empty($cast['characters'])) {
-									$num_characters = count($cast['characters']);
-									foreach ($cast['characters'] as $character) {
-										echo $character;
-										if (++$j != $num_characters) {
-											echo ' / ';
-										}
-									}
-								}
-								echo '</div>';
-							}
-					echo '</div>
-					</div>
+					<div>';
+					
+					$this->_parse_synopsis();
+			echo '</div>
+				<div>';
+					$this->_parse_cast();
+			echo '</div>
 				</div>';
 		}
 		
 		private function _parse_mobile_movie($json_movie) {
+			$tmdb_movie = $this->tmdb_movie;
+
 			echo '
 				<div data-role="collapsible-set" data-inset="false" class="movie_details" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-					<div data-role="collapsible">
-						<h3>Details</h3>
-						<div class="ui-grid-a">
-						<div class="ui-block-a">';
-						if (count($json_movie['abridged_directors']) > 1) {
-							echo '<b>Directors</b>';
-						} else {
-							echo '<b>Director</b>';
-						}
-						echo '</div>
-						<div class="ui-block-b">';
-						foreach ($json_movie['abridged_directors'] as $directors) {
-							echo $directors['name'], '<br />';
-						}
-						echo '</div>
-						</div>
-						<div class="ui-grid-a">
-						<div class="ui-block-a">
-							<b>Studio</b>
-						</div>
-						<div class="ui-block-b">';
-						if (empty($json_movie['studio'])) {
-							echo 'N/A';
-						} else {
-							echo $json_movie['studio'];
-						}
-						echo '</div>
-						</div>
+					<div data-role="collapsible">';
+						$this->_parse_movie_details();
+						
+			echo '
 					</div>
-					<div data-role="collapsible">
-						<h3>Synopsis</h3>
-						<p>';
-						if (empty($json_movie['synopsis'])) {
-							echo 'No synopsis found.';
-						} else {
-							echo $json_movie['synopsis'];
-						}
-					echo '</p>
-					</div>
+					<div data-role="collapsible">';
+						$this->_parse_synopsis();
+			echo '	</div>
 					
-					<div data-role="collapsible">
-						<h3>Cast</h3>
-						<div class="ui-grid-a">';
-							foreach ($json_movie['abridged_cast'] as $cast) {
-								echo '<div class="ui-block-a">';
-								if (!empty($cast['name'])) {
-									echo '<b>' . $cast['name'] . '</b>';
-								}
-								echo '</div>';
-								echo '<div class="ui-block-b">';
-								$j = 0;
-								if (!empty($cast['characters'])) {
-									$num_characters = count($cast['characters']);
-									foreach ($cast['characters'] as $character) {
-										echo $character;
-										if (++$j != $num_characters) {
-											echo ' / ';
-										}
-									}
-								}
-								echo '</div>';
-							}
-					echo '</div>
-					</div>
+					<div data-role="collapsible">';
+						$this->_parse_cast();
+				echo '</div>
 				</div>';
+		}
+		
+		private function _parse_directors() {
+			$json_movie = $this->rtdb_movie;
+			
+			echo '<div class="ui-grid-a">
+				<div class="ui-block-a">';
+					if (count($json_movie['abridged_directors']) > 1) {
+						echo '<b>Directors</b>';
+					} else {
+						echo '<b>Director</b>';
+					}
+				echo '</div>
+				<div class="ui-block-b">';
+					foreach ($json_movie['abridged_directors'] as $directors) {
+						echo $directors['name'], '<br />';
+				}
+				echo '</div>
+			</div>';
+		}
+		
+		private function _parse_production_companies() {
+			$tmdb_movie = $this->tmdb_movie;
+			// Production Companies
+			echo '<div class="ui-grid-a">
+				<div class="ui-block-a">';
+					$num_companies = count($tmdb_movie['production_companies']);
+							
+					if ($num_companies > 1) {
+						echo '<b>Production Companies</b>';
+					} else {
+						echo '<b>Production Company</b>';
+					}
+				echo '</div>
+				<div class="ui-block-b">';
+					if (empty($tmdb_movie['production_companies'])) {
+						echo 'N/A';
+					} else {
+						$i = 0;
+						foreach ($tmdb_movie['production_companies'] as $studio) {
+							echo $studio['name'];
+							if (++$i != $num_companies) {
+								echo '<br />';
+							}
+						}
+					}
+				echo '</div>
+			</div>';
+		}
+		
+		private function _parse_production_countries() {
+		
+			$tmdb_movie = $this->tmdb_movie;
+			$num_countries = count($tmdb_movie['production_countries']);
+			echo '<div class="ui-grid-a">
+				<div class="ui-block-a">';
+					if ($num_countries > 1) {
+						echo '<b>Production Countries</b>';
+					} else {
+						echo '<b>Production Country</b>';
+					}
+				echo '</div>
+							
+				<div class="ui-block-b">';
+					$i = 0;
+					if (empty($tmdb_movie['production_countries'])) {
+						echo 'N/A';
+					} else {
+						foreach ($tmdb_movie['production_countries'] as $country) {
+							echo $country['name'];
+							if (++$i != $num_countries) {
+								echo '<br />';
+							}
+						}
+					}
+				echo '</div>
+			</div>';
+		}
+		
+		private function _parse_budget() {
+			$tmdb_movie = $this->tmdb_movie;
+			
+			echo '<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<b>Budget</b>
+				</div>
+							
+				<div class="ui-block-b">';
+					if ($tmdb_movie['budget'] == 0 || empty($tmdb_movie['budget']))
+						echo 'N/A';
+					else
+						echo '$' . number_format($tmdb_movie['budget'], 0);
+			echo '</div>
+			</div>';
+		}
+		
+		private function _parse_revenue() {
+			$tmdb_movie = $this->tmdb_movie;
+			
+			echo '<div class="ui-grid-a">
+				<div class="ui-block-a">
+					<b>Revenue</b>
+				</div>
+							
+				<div class="ui-block-b">';
+					if ($tmdb_movie['revenue'] == 0 || empty($tmdb_movie['revenue']))
+						echo 'N/A';
+					else
+						echo '$' . number_format($tmdb_movie['revenue'], 0);
+			echo '</div>
+			</div>';		
+		}
+		
+		private function _parse_movie_details() {
+			echo '<h3 class="subtitle">Details</h3>';
+						
+			// Directors
+			$this->_parse_directors();
+			
+			// Production Companies
+			$this->_parse_production_companies();
+			
+			// Production Countries
+			$this->_parse_production_countries();
+			
+			// Budget
+			$this->_parse_budget();
+			
+			// Revenue
+			$this->_parse_revenue();
+		}
+		
+		private function _parse_synopsis() {
+			$tmdb_movie = $this->tmdb_movie;
+			$json_movie = $this->rtdb_movie;
+			
+			echo '
+				<h3 class="subtitle">Synopsis</h3>
+				<p>';
+					if (empty($json_movie['synopsis'])) {
+						echo $tmdb_movie['overview'];
+					} else {
+						echo $json_movie['synopsis'];
+					}
+				echo '</p>';
+		}
+		
+		private function _parse_cast() {
+			$tmdb = new TMDB();
+			$credits = $tmdb->get_credits($this->imdb_id);
+			$cast_members = json_decode($credits, true);
+			
+			echo '
+				<h3 class="subtitle">Cast</h3>
+					<div class="ui-grid-a">';
+						foreach ($cast_members['cast'] as $cast) {
+							echo '<div class="ui-block-a">';
+							if (!empty($cast['profile_path'])) {
+								echo '<div class="movie_head"><img src="http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w45/' . $cast['profile_path'] . '" />
+								  </div>';
+							}else {
+								echo '<div></div>';
+							}
+							
+							echo '</div>';
+							
+							echo '<div class="ui-block-b" style="margin-left: -20px;">';
+							if (!empty($cast['name'])) {
+								echo '<b>' . $cast['name'] . '</b>';
+								if (!empty($cast['character'])) {
+									echo '<br />' . $cast['character'];
+								} else {
+									echo 'N/A';
+								}
+								echo '</div>';
+							} else {
+								echo 'N/A';
+							}
+						}
+			echo '</div>';
 		}
 		
         private function _parse_search_results() {

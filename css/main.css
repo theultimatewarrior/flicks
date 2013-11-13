@@ -80,4 +80,8 @@ a:link {
     position: absolute;
 }
 
+.subtitle {
+	color: #aaaaaa;
+}
+
 <!-- jQuery Mobile Overwrite -->
