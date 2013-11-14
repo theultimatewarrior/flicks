@@ -42,7 +42,19 @@
 			$i = 0;
 			echo '<div class="movie_head">
 					  <div class="movie_poster">
-						<img class="poster" src="' . $json_movie['posters']['original'] . '" width="100%" />
+						<img class="poster" src="' . $json_movie['posters']['original'] . '" width="100%" /> <br />';
+                        
+                        // Better to have a transparent 'add movie' button over the poster
+            /*if (!$detect->isMobile()) {
+                    echo '<div style="width: 95%">
+                            <a href="" data-role="button" data-theme="a">Add Movie</a>
+                        </div>';
+            } else {
+                    echo '<div style="width: 95%">
+                            <a href="" data-role="button" data-mini="true" data-theme="a">Add Movie</a>
+                        </div>';
+            }*/
+                    echo '
 					  </div>
 					  
 					  <div class="movie_title">
@@ -54,7 +66,7 @@
 								echo ' | ';
 							}
 						};
-						echo ' - ' . $date->format('F d Y') . '</p>
+						echo ' - ' . $date->format('F d Y') . '<br /><br /><span style="font-style: italic;">&#8220;' . $json_movie['critics_consensus'] . '&#8221;</span></p>
 					  </div>';
 			// For Mobile Devices only
 			if( $detect->isMobile() && !$detect->isTablet() ){
