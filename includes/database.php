@@ -5,8 +5,6 @@
     define("DB_PASS", "");
     define("DB_NAME", "flicks");
     
-    define("CLS_PATH", "classes/");
-    
     function connect_db() {
     
         try {
